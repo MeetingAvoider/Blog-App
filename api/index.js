@@ -2,10 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
-// import authRoutes from "./routes/auth.route.js";
-// import userRoutes from "./routes/user.route.js";
+import authRoute from "./routes/auth.route.js";
 dotenv.config(); // Load environment variables from .env file
-console.log("MongoDB connection string:", process.env.MONGO);
 
 mongoose
   .connect(
@@ -19,7 +17,9 @@ mongoose
   });
 
 const app = express();
+app.use(express.json());
 app.listen(9000, () => {
   console.log("Server is running on port 9000");
 });
 app.use("/api/user", userRoute);
+app.use("/api/auth", authRoute);
